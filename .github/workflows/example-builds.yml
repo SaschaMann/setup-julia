@@ -3,25 +3,19 @@ name: Example builds
 on:
   push:
     branches: ['main', 'master', 'releases/*']
-  pull_request:
   workflow_dispatch:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
-        julia-version: ['1.0.5', '1', '^1.5.0-beta1']
-        julia-arch: [x64, x86]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
-        # 32-bit Julia binaries are not available on macOS
-        exclude:
-          - os: macOS-latest
-            julia-arch: x86
+        julia-version: ['1']
+        julia-arch: [aarch64]
     
     steps:
-      - uses: actions/checkout@v1.0.0
+      - uses: actions/checkout@v3.0.0
 
       - name: "Install dependencies"
         run: |
